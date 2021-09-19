@@ -3,7 +3,7 @@
 <head>
     <title>Bookstore: Muokkaa kirjaa</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+    <link type="text/css" rel="stylesheet" href="../css/bootstrap.min.css" th:href="@{../css/bootstrap.min.css}" />
 </head>
 <body>
 	<h1>Muokkaa kirjaa</h1>
@@ -11,12 +11,18 @@
 		<form th:object="${book}" th:action="@{/edit/{id}(id=${book.id})}" action="#" method="post">
 		  	  	
 		  	<label for="knimi">Nimi</label>
-			<input type="text" id="knimi" value="${book.name}" th:field="*{title}" />	
+			<input type="text" id="knimi" th:field="*{title}" />	
 		  	<div style="clear: both; display: block; height: 10px;"></div>
 		  	
 		  	<label for="ktekija">Tekijä</label>
 			<input type="text" id="ktekija" th:field="*{author}" />
 			<div style="clear: both; display: block; height: 10px;"></div>
+			
+			<label for="kluokka">Luokka</label>
+			<select id="category" th:field="*{category.categoryid}">
+       			<option th:each="category: ${luokat}" th:value="${category.categoryid}" th:text="${category.name}"></option>
+    		</select>
+    		<div style="clear: both; display: block; height: 10px;"></div>
 		  	
 		  	<label for="kisbn">ISBN</label>
 			<input type="text" id="kisbn" th:field="*{isbn}" />

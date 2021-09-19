@@ -17,6 +17,12 @@
 		  	<label for="ktekija">Tekijä</label>
 			<input type="text" id="ktekija" th:field="*{author}" />
 			<div style="clear: both; display: block; height: 10px;"></div>
+			
+			<label for="kluokka">Luokka</label>
+			<select id="kkategoria" th:field="*{category}">
+       			<option th:each="category: ${luokat}" th:value="${category.categoryid}" th:text="${category.name}"></option>
+    		</select>
+    		<div style="clear: both; display: block; height: 10px;"></div>
 		  	
 		  	<label for="kisbn">ISBN</label>
 			<input type="text" id="kisbn" th:field="*{isbn}" />

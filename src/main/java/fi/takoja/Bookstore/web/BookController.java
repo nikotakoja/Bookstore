@@ -12,25 +12,26 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import fi.takoja.Bookstore.domain.Book;
 import fi.takoja.Bookstore.domain.BookRepository;
+import fi.takoja.Bookstore.domain.CategoryRepository;
 
 @Controller
 public class BookController {
 	
 	@Autowired
 	private BookRepository repository; 
+	@Autowired
+	private CategoryRepository crepository;
 	
 	@GetMapping({"/index","/", "/booklist"})
 	public String kirjaListaus(Model model) {
-		
 		model.addAttribute("kirjat", repository.findAll());
-		
-		return "/booklist";
-	
+		return "/booklist";	
 	}
 	
     @GetMapping("/add")
     public String lisaaKirja(Model model){
     	model.addAttribute("book", new Book());
+    	model.addAttribute("luokat", crepository.findAll());
         return "/addbook";
     }
     
@@ -42,11 +43,10 @@ public class BookController {
     
     @GetMapping("/edit/{id}")
     public String muokkaaKirja(@PathVariable("id") Long bookId, Model model){
-    	
     	Book book = repository.findById(bookId)
     			.orElseThrow(() -> new IllegalArgumentException("Väärä kirja ID:" + bookId));
-    	
     	model.addAttribute("book", book);
+    	model.addAttribute("luokat", crepository.findAll());
         return "/editbook";
     }
     
@@ -55,7 +55,7 @@ public class BookController {
       BindingResult result, Model model) {
         if (result.hasErrors()) {
             book.setId(id);
-            return "update-user";
+            return "/editbook";
         }            
         repository.save(book);
         return "redirect:/index";
