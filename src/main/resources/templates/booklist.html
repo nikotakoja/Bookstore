@@ -32,7 +32,11 @@
 		    		<button class="btn btn-danger" type="submit">Poista</button>
 		    	</form>
 		    </td>
-    		<td><a th:href="@{/edit/{id}(id=${book.id})}">Muokkaa</a></td>	
+    		<td>
+    			<form th:action="@{/edit/{id}(id=${book.id})}">
+    				<button class="btn btn-primary" type="submit">Muokkaa</button>
+    			</form>
+    		</td>	
     </tr>
 </table>
 
